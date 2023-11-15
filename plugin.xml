@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="TMXProfilingPlugin" version="1.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-plugin-tmxprofilingplugin</name>
+    <js-module name="TMXProfilingPlugin" src="www/TMXProfilingPlugin.js">
+        <clobbers target="cordova.plugins.TMXProfilingPlugin" />
+    </js-module>
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="TMXProfilingPlugin">
+                <param name="android-package" value="com.threatmetrix.cordova.plugin.TMXProfilingPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
+        <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
+        <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
+        <!--<framework src="src/android/build.gradle" custom="true" type="gradleReference" />-->
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="TMXProfilingPlugin">
+                <param name="ios-package" value="CDVTMXProfilingPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/CDVTMXProfilingPlugin.h" />
+        <source-file src="src/ios/CDVTMXProfilingPlugin.mm" />
+        <resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />
+        <framework src="src/ios/TMXProfiling.framework" custom="true" />
+        <resource-file src="src/ios/TMXProfilingConnections.framework" target="TMXProfilingConnections.framework" />
+        <framework src="src/ios/TMXProfilingConnections.framework" custom="true" />
+    </platform>
+</plugin>
