@@ -15,7 +15,8 @@
         <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
         <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
         <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
-        <!--<framework src="src/android/build.gradle" custom="true" type="gradleReference" />-->
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+        <!--<source-file src="src/android/libs/TMXProfiling-7.1-45.aar" target-dir="libs" /> -->
     </platform>
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
