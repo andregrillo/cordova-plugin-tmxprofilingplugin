@@ -1,9 +1,12 @@
+//Refazer tudo 
+
 function TMXProfilingPlugin() {}
 
 TMXProfilingPlugin.prototype.profile = function(message, duration, successCallback, errorCallback) {
     var options = {};     
     options.message = message;     
     options.duration = duration;     
+    //Faltam variáveis aqui!
     cordova.exec(successCallback, errorCallback, 'TMXProfilingPlugin', 'profile', [options]);
 }
 // Installation constructor that binds ToastyPlugin to window
