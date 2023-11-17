@@ -12,11 +12,29 @@
                 <param name="android-package" value="com.threatmetrix.cordova.plugin.TMXProfilingPlugin"/>
             </feature>
         </config-file>
+        <!-- Internet, Location Permissions and WiFi -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+        </config-file>
+        <!-- Add queries for WebView packages -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <queries>
+                <package android:name="com.google.android.webview" />
+                <package android:name="com.android.webview" />
+            </queries>
+        </config-file>
+        <!-- Permission for Advertising ID when targeting API 33 -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+        </config-file>
         <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
         <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
         <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
-        <!--<source-file src="src/android/libs/TMXProfiling-7.1-45.aar" target-dir="libs" /> -->
     </platform>
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
