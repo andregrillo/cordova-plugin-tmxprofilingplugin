@@ -134,13 +134,9 @@ public class TMXProfilingPlugin extends CordovaPlugin {
                 // Check the status of the profiling
                 TMXStatusCode statusCode = result.getStatus();
                 if (statusCode == TMXStatusCode.TMX_OK) {
-                    // Profiling was successful, return the session ID
-                    callbackContext.success(result.getSessionID());
-
-                    // Start the scan packages
-                    TMXProfiling.getInstance().scanPackages();
+                    callbackContext.success();
                 } else {
-                    // Profiling failed, return the error description
+                    // Cancel Profiling failed, return the error description
                     callbackContext.error("Error: Profiling failed with status " + statusCode.getDesc());
                 }
             }
