@@ -1,7 +1,7 @@
  {
  "name": "cordova-plugin-tmxprofilingplugin",
   "version": "1.0.0",
-  "description": "A Cordova plugin that allows users to utilise ThreatMetrix Profilling SDK in OutSystems.",
+  "description": "A Cordova plugin that allows users to utilise ThreatMetrix Profilling SDK in OutSystems Mobile Apps.",
   "cordova": {
     "id": "TMXProfilingPlugin",
     "platforms": [

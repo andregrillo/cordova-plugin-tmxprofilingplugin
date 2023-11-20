@@ -6,14 +6,12 @@ import com.lexisnexisrisk.threatmetrix.TMXEndNotifier;
 import com.lexisnexisrisk.threatmetrix.TMXProfiling;
 import com.lexisnexisrisk.threatmetrix.TMXProfilingHandle;
 import com.lexisnexisrisk.threatmetrix.TMXProfilingOptions;
-import com.lexisnexisrisk.threatmetrix.TMXScanEndNotifier;
 import com.lexisnexisrisk.threatmetrix.TMXStatusCode;
 import com.lexisnexisrisk.threatmetrix.tmxprofilingconnections.TMXProfilingConnections;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class TMXProfilingPlugin extends CordovaPlugin {
@@ -24,11 +22,9 @@ public class TMXProfilingPlugin extends CordovaPlugin {
             if ("init".equals(action)) {
                 return init(args, callbackContext);
             } else if ("doProfile".equals(action)) {
-                doProfile(callbackContext);
-                return true;
+                return doProfile(args,callbackContext);
             } else if ("cancelProfile".equals(action)) {
-                cancelProfile(callbackContext);
-                return true;
+                return cancelProfile(callbackContext);
             } else {
                 callbackContext.error("Error: Action not recognized.");
                 return false;
@@ -84,9 +80,9 @@ public class TMXProfilingPlugin extends CordovaPlugin {
                 .setContext(this.cordova.getActivity().getApplicationContext())
                 .setDisableInitPackageScan(false)
                 .setDisableProfilePackageScan(false)
-                .setRegisterForLocationServices(registerForLocationServices) //
-                .setScreenOffTimeout(screenOffTimeout, TimeUnit.SECONDS) //
-                .setDisableLocSerOnBatteryLow(disableLocSerOnBatteryLow) //
+                .setRegisterForLocationServices(registerForLocationServices)
+                .setScreenOffTimeout(screenOffTimeout, TimeUnit.SECONDS)
+                .setDisableLocSerOnBatteryLow(disableLocSerOnBatteryLow)
                 .setProfileTimeout(profileTimeout,TimeUnit.SECONDS)
                 .setProfilingConnections(tmxConn);
 
@@ -99,33 +95,49 @@ public class TMXProfilingPlugin extends CordovaPlugin {
         return true;
     }
 
-    private void doProfile(final CallbackContext callbackContext) {
-        TMXProfilingOptions options = new TMXProfilingOptions().setCustomAttributes(new ArrayList<String>());
+    private boolean doProfile(final JSONArray args, final CallbackContext callbackContext) {
+        try {
+            // Create a new TMXProfilingOptions object
+            TMXProfilingOptions options = new TMXProfilingOptions();
 
-        TMXProfiling.getInstance().profile(options, new TMXEndNotifier() {
-            @Override
-            public void complete(TMXProfilingHandle.Result result) {
-                // Log the profiling result
-                Log.i("Plugin", "⭐️ Profiling is finished with result of " + result.getStatus() +
-                        " session id is " + result.getSessionID());
-
-                // Check the status of the profiling
-                TMXStatusCode statusCode = result.getStatus();
-                if (statusCode == TMXStatusCode.TMX_OK) {
-                    // Profiling was successful, return the session ID
-                    callbackContext.success(result.getSessionID());
-
-                    // Start the scan packages
-                    TMXProfiling.getInstance().scanPackages();
-                } else {
-                    // Profiling failed, return the error description
-                    callbackContext.error("Error: Profiling failed with status " + statusCode.getDesc());
+            // Set session ID if provided and not empty
+            if (!args.isNull(0)) {
+                String sessionID = args.getString(0);
+                if (sessionID != null && !sessionID.isEmpty()) {
+                    options.setSessionID(sessionID);
                 }
             }
-        });
+
+            // Start profiling with the configured options
+            TMXProfiling.getInstance().profile(options, new TMXEndNotifier() {
+                @Override
+                public void complete(final TMXProfilingHandle.Result result) {
+                    cordova.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TMXStatusCode statusCode = result.getStatus();
+                            if (statusCode == TMXStatusCode.TMX_OK) {
+                                Log.i("Plugin", "⭐️ Profiling completed successfully. Session ID: " + result.getSessionID());
+                                callbackContext.success(result.getSessionID());
+                            } else {
+                                Log.e("Plugin", "Error: Profiling failed with status " + statusCode.getDesc());
+                                callbackContext.error("Error: Profiling failed with status " + statusCode.getDesc());
+                            }
+                        }
+                    });
+                }
+            });
+
+        } catch (JSONException e) {
+            // Handle JSON parsing errors
+            callbackContext.error("Error parsing options for profiling: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
-    private void cancelProfile(final CallbackContext callbackContext) {
+
+    private boolean cancelProfile(final CallbackContext callbackContext) {
         TMXProfilingHandle profilingHandle = TMXProfiling.getInstance().profile(new TMXEndNotifier(){
             @Override
             public void complete(TMXProfilingHandle.Result result)
@@ -142,5 +154,6 @@ public class TMXProfilingPlugin extends CordovaPlugin {
             }
         });
         profilingHandle.cancel();
+        return true;
     }
 }
