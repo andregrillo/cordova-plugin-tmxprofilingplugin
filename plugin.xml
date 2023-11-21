@@ -13,9 +13,9 @@
         <hook type="after_plugin_install" src="hooks/fix_android_manifest.js"/>-->
 
         <!-- Define the namespace 'tools' within the manifest element -->
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+        <!-- <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
             <manifest xmlns:tools="http://schemas.android.com/tools"/>
-        </config-file>
+        </config-file> -->
 
         <!-- Define the uses-permission tags within the manifest element -->
         <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
@@ -25,7 +25,7 @@
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
             <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
             <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission"/>
+            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
         </config-file>
 
         <!-- Add queries for WebView packages -->
