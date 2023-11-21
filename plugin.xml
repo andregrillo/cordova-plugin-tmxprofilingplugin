@@ -6,45 +6,48 @@
     <js-module name="TMXProfilingPlugin" src="www/TMXProfilingPlugin.js">
         <clobbers target="cordova.plugins.TMXProfilingPlugin" />
     </js-module>
-    
-
     <platform name="android">
-        <!--<hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        <hook type="after_plugin_install" src="hooks/fix_android_manifest.js"/>-->
-
-        <!-- Define the namespace 'tools' within the manifest element -->
-        <!-- <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
-            <manifest xmlns:tools="http://schemas.android.com/tools"/>
-        </config-file> -->
-
-        <!-- Define the uses-permission tags within the manifest element -->
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+        <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+        <hook type="after_plugin_install" src="hooks/fix_android_manifest.js"/>
+        <config-file target="config.xml" parent="/*">
+            <feature name="TMXProfilingPlugin">
+                <param name="android-package" value="com.threatmetrix.cordova.plugin.TMXProfilingPlugin"/>
+            </feature>
+        </config-file>
+        <!-- Internet, Location Permissions and WiFi -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
             <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-            <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
         </config-file>
-
         <!-- Add queries for WebView packages -->
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
             <queries>
                 <package android:name="com.google.android.webview" />
                 <package android:name="com.android.webview" />
             </queries>
         </config-file>
+        <!-- Permission for Scanning all apps -->
+        <!--<config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+            <manifest xmlns:tools="http://schemas.android.com/tools" />
+        </config-file> -->
 
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+        </config-file>
+
+        <!-- Permission for Advertising ID when targeting API 33 -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+        </config-file>
         <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
         <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
         <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
         <resource-file src="src/android/libs/TMXDeviceSecurityHealth-7.1-45.aar" target="libs/TMXDeviceSecurityHealth-7.1-45.aar" />
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
-
-
-
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
