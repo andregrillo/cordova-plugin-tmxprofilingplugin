@@ -7,8 +7,6 @@
         <clobbers target="cordova.plugins.TMXProfilingPlugin" />
     </js-module>
     <platform name="android">
-        <!--<hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        <hook type="after_plugin_install" src="hooks/fix_android_manifest.js"/> -->
         <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
                 <param name="android-package" value="com.threatmetrix.cordova.plugin.TMXProfilingPlugin"/>
@@ -29,11 +27,6 @@
                 <package android:name="com.android.webview" />
             </queries>
         </config-file>
-        <!-- Permission for Scanning all apps -->
-        <!--<config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
-            <manifest xmlns:tools="http://schemas.android.com/tools" />
-        </config-file> -->
-
         <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
         </config-file>
