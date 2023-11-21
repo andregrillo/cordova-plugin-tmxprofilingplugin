@@ -1,65 +1,41 @@
-#!/usr/bin/env node
-
-const fs = require('fs');
-const path = require('path');
-const xml2js = require('xml2js');
-
 module.exports = function(context) {
+    const fs = context.requireCordovaModule('fs');
+    const path = context.requireCordovaModule('path');
+    const xml2js = context.requireCordovaModule('xml2js');
+
     const manifestPath = path.join(context.opts.projectRoot, 'platforms/android/app/src/main/AndroidManifest.xml');
-    const manifestExists = fs.existsSync(manifestPath);
+    const manifestData = fs.readFileSync(manifestPath).toString();
 
-    if (manifestExists) {
-        fs.readFile(manifestPath, 'utf8', function(err, data) {
-            if (err) {
-                throw new Error('🚨 Unable to find AndroidManifest.xml: ' + err);
-            }
+    xml2js.parseString(manifestData, (err, manifestObj) => {
+        if (err) {
+            throw new Error(`Error parsing AndroidManifest.xml: ${err}`);
+        }
 
-            xml2js.parseString(data, function(err, result) {
-                if (err) {
-                    throw new Error('🚨 Unable to parse AndroidManifest.xml: ' + err);
+        // Ensure the manifest has the tools namespace attribute
+        manifestObj.manifest.$['xmlns:tools'] = 'http://schemas.android.com/tools';
+
+        // Find and update the QUERY_ALL_PACKAGES permission
+        const usesPermissions = manifestObj.manifest['uses-permission'] || [];
+        const queryAllPackagesPermission = usesPermissions.find(perms => 
+            perms['$']['android:name'] === 'android.permission.QUERY_ALL_PACKAGES');
+
+        if (queryAllPackagesPermission) {
+            queryAllPackagesPermission['$']['tools:ignore'] = 'QueryAllPackagesPermission';
+        } else {
+            // Add the permission if not found
+            manifestObj.manifest['uses-permission'].push({
+                '$': {
+                    'android:name': 'android.permission.QUERY_ALL_PACKAGES',
+                    'tools:ignore': 'QueryAllPackagesPermission'
                 }
-
-                const manifest = result.manifest;
-                const prefix = 'xmlns:tools';
-                const toolsUri = 'http://schemas.android.com/tools';
-                const permissionName = 'android.permission.QUERY_ALL_PACKAGES';
-
-                // Check if the tools namespace is already present
-                if (!manifest.$[prefix]) {
-                    manifest.$[prefix] = toolsUri;
-                }
-
-                // Check if the permission is already present
-                let permissionExists = false;
-                if (!manifest['uses-permission']) {
-                    manifest['uses-permission'] = [];
-                } else {
-                    permissionExists = manifest['uses-permission'].some(function(permission) {
-                        return permission.$['android:name'] === permissionName;
-                    });
-                }
-
-                // Add permission with tools:ignore attribute if it's not already there
-                if (!permissionExists) {
-                    manifest['uses-permission'].push({
-                        $: {
-                            'android:name': permissionName,
-                            'tools:ignore': 'QueryAllPackagesPermission'
-                        }
-                    });
-                }
-
-                // Build XML from JS object
-                const builder = new xml2js.Builder();
-                const xml = builder.buildObject(result);
-
-                // Write manifest back to file
-                fs.writeFile(manifestPath, xml, 'utf8', function(err) {
-                    if (err) throw new Error('🚨 Unable to write into AndroidManifest.xml: ' + err);
-                });
             });
-        });
-    } else {
-        throw new Error('🚨 AndroidManifest.xml not found.');
-    }
+        }
+
+        // Convert the object back to XML
+        const builder = new xml2js.Builder();
+        const updatedManifest = builder.buildObject(manifestObj);
+
+        // Write the updated manifest back to the file
+        fs.writeFileSync(manifestPath, updatedManifest);
+    });
 };
