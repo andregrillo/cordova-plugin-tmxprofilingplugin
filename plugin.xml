@@ -29,6 +29,7 @@
         </config-file>
         <!-- Permission for Scanning all apps -->
         <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <manifest xmlns:tools="http://schemas.android.com/tools" />
             <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
         </config-file>
 
