@@ -122,6 +122,7 @@ public class TMXProfilingPlugin extends CordovaPlugin {
                             if (statusCode == TMXStatusCode.TMX_OK) {
                                 Log.i("Plugin", "⭐️ Profiling completed successfully. Session ID: " + result.getSessionID());
                                 callbackContext.success(result.getSessionID());
+
                             } else {
                                 Log.e("Plugin", "Error: Profiling failed with status " + statusCode.getDesc());
                                 callbackContext.error("Error: Profiling failed with status " + statusCode.getDesc());
@@ -147,13 +148,20 @@ public class TMXProfilingPlugin extends CordovaPlugin {
         int timeout = args.optInt(0, defaultTimeout);
 
         // Start the package scan with the timeout value
-        TMXProfiling.getInstance().scanPackages(timeout, TimeUnit.SECONDS, new TMXScanEndNotifier() {
+        boolean scanStarted = TMXProfiling.getInstance().scanPackages(timeout, TimeUnit.SECONDS, new TMXScanEndNotifier() {
             @Override
             public void complete() {
                 Log.i("Plugin", "⭐️ Package scan completed successfully.");
                 callbackContext.success("Package scan completed successfully.");
             }
         });
+        if (scanStarted) {
+            Log.i("Plugin", "⭐️ Scan started!");
+        } else {
+            Log.i("Plugin", "🚨 Scan NOT started!");
+            callbackContext.error("Error: Scan NOT started");
+        }
+
         return true;
     }
 

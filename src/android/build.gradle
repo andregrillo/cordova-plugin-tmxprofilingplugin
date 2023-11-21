@@ -2,4 +2,5 @@ dependencies {
     implementation fileTree(include: ['*.aar'], dir: 'libs')
     implementation files("src/main/libs/TMXProfiling-7.1-45.aar")
     implementation files("src/main/libs/TMXProfilingConnections-7.1-45.aar")
+    implementation files("src/main/libs/TMXDeviceSecurityHealth-7.1-45.aar")
 }

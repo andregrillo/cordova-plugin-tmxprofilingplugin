@@ -27,6 +27,11 @@
                 <package android:name="com.android.webview" />
             </queries>
         </config-file>
+        <!-- Permission for Scanning all apps -->
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
+        </config-file>
+
         <!-- Permission for Advertising ID when targeting API 33 -->
         <config-file target="app/src/main/AndroidManifest.xml" parent="/*">
             <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
@@ -34,6 +39,7 @@
         <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
         <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
         <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
+        <resource-file src="src/android/libs/TMXDeviceSecurityHealth-7.1-45.aar" target="libs/TMXDeviceSecurityHealth-7.1-45.aar" />
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
     <platform name="ios">
