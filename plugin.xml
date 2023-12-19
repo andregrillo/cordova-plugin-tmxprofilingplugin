@@ -52,11 +52,12 @@
         <hook type="after_plugin_install" src="hooks/createBuildJson.js" />
         <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
-                <param name="ios-package" value="CDVTMXProfilingPlugin" />
+                <param name="ios-package" value="TMXProfilingPlugin" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
         <source-file src="src/ios/TMXProfilingPlugin.swift" />
+        <header-file src="src/ios/TMXProfilingConnectionsProtocol.h" />
         <framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" arch="ARM" />
         <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" arch="ARM" />
         <!--<resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />

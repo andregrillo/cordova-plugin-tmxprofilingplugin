@@ -13,7 +13,7 @@ class TMXProfilingPlugin: CDVPlugin {
     var profileHandle: TMXProfileHandle!
     var sessionID = ""
     
-    @objc(initialize:)
+    @objc(init:)
     func initialize(_ command: CDVInvokedUrlCommand) {
         var orgId: String?
         var fpServer: String?
@@ -67,6 +67,7 @@ class TMXProfilingPlugin: CDVPlugin {
                                 // with the default settings.
 //                                TMXProfilingConnectionsInstance : connectionInstance
                                 ])
+            sendPluginResult(status: CDVCommandStatus_OK, callbackId: command.callbackId)
         } else {
             print("🚨 ERROR: Could not initialize TMXProfiling singleton")
             sendPluginResult(status: CDVCommandStatus_ERROR, message: "ERROR: Could not initialize TMXProfiling singleton", callbackId: command.callbackId)
@@ -114,7 +115,3 @@ class TMXProfilingPlugin: CDVPlugin {
         self.commandDelegate!.send(pluginResult, callbackId: callbackId)
     }
 }
-    
-    
-
-
