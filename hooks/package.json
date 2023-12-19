@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "node-fetch": "3.3.2",
+    "unzipper": "0.10.14",
+    "xcode": "^2.0.0",
+    "xml2js": "^0.6.2"
+  }
+}
