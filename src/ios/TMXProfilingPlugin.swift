@@ -99,7 +99,11 @@ class TMXProfilingPlugin: CDVPlugin {
                 "Other"
                 print("⭐️ Profile completed with: \(statusString) and session ID: \(self.sessionID)")
             
-            sendPluginResult(status: CDVCommandStatus_OK, message: "Profile completed with: \(statusString) and session ID: \(self.sessionID)", callbackId: command.callbackId)
+            if status == .ok {
+                sendPluginResult(status: CDVCommandStatus_OK, message: self.sessionID, callbackId: command.callbackId)
+            } else {
+                sendPluginResult(status: CDVCommandStatus_ERROR, message: "Error: \(statusString)", callbackId: command.callbackId)
+            }
         })
     }
     
@@ -115,3 +119,7 @@ class TMXProfilingPlugin: CDVPlugin {
         self.commandDelegate!.send(pluginResult, callbackId: callbackId)
     }
 }
+    
+    
+
+
