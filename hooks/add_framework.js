@@ -8,11 +8,10 @@ function getProjectName() {
     var name;
     parseString(config, function (err, result) {
         name = result.widget.name.toString();
-        const r = /\B\s+|\s+\B/g;  //Removes trailing and leading spaces
+        const r = /\B\s+|\s+\B/g;  // Removes trailing and leading spaces
         name = name.replace(r, '');
     });
-    // Escape spaces for file paths
-    name = name.replace(/\s/g, '\\ ');
+    name = name.replace(/\s/g, '\\ ');  // Escape spaces for file paths
     return name || null;
 }
 
@@ -22,11 +21,20 @@ module.exports = function(context) {
 
     myProj.parseSync();
 
-    // Framework to add
-    var framework = path.join(context.opts.projectRoot, 'plugins/TMXProfilingPlugin/src/ios/frameworks/TMXProfilingConnections.xcframework');
+    // Add TMXProfilingConnections framework
+    var frameworkPath = path.join('plugins/TMXProfilingPlugin/src/ios/frameworks/TMXProfilingConnections.xcframework');
+    myProj.addFramework(frameworkPath, {customFramework: true, embed: true});
 
-    // Add framework to project
-    myProj.addFramework(framework, {customFramework: true, embed: true});
+    // Modify build settings to ensure framework is set to "Embed & Sign"
+    var configurations = myProj.pbxXCBuildConfigurationSection();
+    for (var key in configurations) {
+        var config = configurations[key];
+        if (typeof config === 'object') {
+            var buildSettings = config.buildSettings;
+            buildSettings['CODE_SIGN_IDENTITY[sdk=iphoneos*]'] = '"iPhone Developer"';
+            buildSettings['LD_RUNPATH_SEARCH_PATHS'] = '"$(inherited) @executable_path/Frameworks"';
+        }
+    }
 
     // Write the modified project back to disk
     fs.writeFileSync(projectPath, myProj.writeSync());
