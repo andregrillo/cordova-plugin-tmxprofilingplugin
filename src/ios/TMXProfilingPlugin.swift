@@ -7,6 +7,7 @@
 import TMXProfiling
 import TMXProfilingConnections
 
+@objc
 class TMXProfilingPlugin: CDVPlugin {
     
     var profile: TMXProfiling!
