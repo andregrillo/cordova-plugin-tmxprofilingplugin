@@ -50,6 +50,7 @@
            <string>$LOCATION_WHENINUSE_USAGE_DESCRIPTION</string>
        </config-file>
         <!--<hook type="after_plugin_install" src="hooks/createBuildJson.js" />-->
+        <hook type="after_plugin_install" src="hooks/add_framework.js" />
         <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
                 <param name="ios-package" value="TMXProfilingPlugin" />
@@ -59,7 +60,7 @@
         <source-file src="src/ios/TMXProfilingPlugin.swift" />
         <!--<header-file src="src/ios/TMXProfilingConnectionsProtocol.h" />-->
         <framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
-        <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />
+        <!--<framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />-->
         <!--<resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />
         <resource-file src="src/ios/TMXProfilingConnections.framework" target="TMXProfilingConnections.framework" />-->
     </platform>
