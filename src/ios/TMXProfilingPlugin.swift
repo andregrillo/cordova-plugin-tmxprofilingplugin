@@ -18,6 +18,7 @@ class TMXProfilingPlugin: CDVPlugin {
         var orgId: String?
         var fpServer: String?
         var registerForLocationServices = true
+        //Android only - skipped
         //var screenOffTimeout = 180
         //var disableLocSerOnBatteryLow = false
         var profileTimeout = 30
@@ -30,6 +31,7 @@ class TMXProfilingPlugin: CDVPlugin {
             if command.arguments.count > 2, let value = command.arguments[2] as? Bool {
                 registerForLocationServices = value
             }
+            //Android only - skipped
 //            if command.arguments.count > 3, let value = command.arguments[3] as? Int {
 //                screenOffTimeout = value
 //            }
@@ -49,9 +51,6 @@ class TMXProfilingPlugin: CDVPlugin {
             sendPluginResult(status: CDVCommandStatus_ERROR, message: "ERROR: Missing input parameters", callbackId: command.callbackId)
         }
         
-        // Initialize SDK with arguments?
-        // var connectionInstance = TMXProfilingConnections()
-        
         //Get a singleton instance of TMXProfiling
         if let profile = TMXProfiling.sharedInstance() {
             self.profile = profile
@@ -62,10 +61,6 @@ class TMXProfilingPlugin: CDVPlugin {
                                 TMXProfileTimeout     : profileTimeout,
                                 TMXDisableNonFatalLog : disableNonfatalLogs,
                                 TMXLocationServices   : registerForLocationServices
-                                // (OPTIONAL) Pass the configured instance of TMXProfilingConnections to TMX SDK.
-                                // If not passed, configure method tries to create and instance of TMXProfilingConnections
-                                // with the default settings.
-//                                TMXProfilingConnectionsInstance : connectionInstance
                                 ])
             sendPluginResult(status: CDVCommandStatus_OK, callbackId: command.callbackId)
         } else {
