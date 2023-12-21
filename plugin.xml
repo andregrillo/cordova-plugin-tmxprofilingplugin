@@ -60,8 +60,8 @@
         <source-file src="src/ios/TMXProfilingPlugin.swift" />
         <!--<header-file src="src/ios/TMXProfilingConnectionsProtocol.h" />-->
         <framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
-        <!--<framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />-->
-        <!--<resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />-->
-        <source-file src="src/ios/frameworks/TMXProfilingConnections.xcframework" target="TMXProfilingConnections.framework" framework="true"/>
+        <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework/ios-arm64/TMXProfilingConnections.framework" custom="true" embed="true" />
+        <!--<resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />
+        <resource-file src="src/ios/TMXProfilingConnections.framework" target="TMXProfilingConnections.framework" />-->
     </platform>
 </plugin>
