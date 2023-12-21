@@ -50,7 +50,7 @@
            <string>$LOCATION_WHENINUSE_USAGE_DESCRIPTION</string>
        </config-file>
         <!--<hook type="after_plugin_install" src="hooks/createBuildJson.js" />-->
-        <hook type="after_plugin_install" src="hooks/add_framework.js" /> 
+        <hook type="after_plugin_install" src="hooks/add_framework_to_ios.js" /> 
         <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
                 <param name="ios-package" value="TMXProfilingPlugin" />
