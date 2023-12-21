@@ -61,7 +61,7 @@
         <!--<header-file src="src/ios/TMXProfilingConnectionsProtocol.h" />-->
         <!--<framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
         <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />-->
-        <source-file src="src/ios/frameworks/TMXProfilingConnections.xcframework" target-dir="lib" framework="true" />
+        <source-file src="src/ios/frameworks/TMXProfilingConnections.xcframework" framework="true" />
         <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework"   embed="true" custom="true" /> 
     </platform>
 </plugin>
