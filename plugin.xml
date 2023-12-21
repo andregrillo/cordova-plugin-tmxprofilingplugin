@@ -42,17 +42,26 @@
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
     <platform name="ios">
-        <!--<config-file target="config.xml" parent="/*">
+        <hook type="before_plugin_install" src="hooks/install_prerequisites.js" />
+        <hook type="after_plugin_add" src="hooks/add_swift_support.js" />
+        <!-- Usage description of the Location permission request -->
+        <preference name="LOCATION_WHENINUSE_USAGE_DESCRIPTION" default=" " />
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+           <string>$LOCATION_WHENINUSE_USAGE_DESCRIPTION</string>
+       </config-file>
+        <!--<hook type="after_plugin_install" src="hooks/createBuildJson.js" />-->
+        <!--<hook type="after_plugin_install" src="hooks/add_framework_to_ios.js" /> -->
+        <config-file target="config.xml" parent="/*">
             <feature name="TMXProfilingPlugin">
-                <param name="ios-package" value="CDVTMXProfilingPlugin" />
+                <param name="ios-package" value="TMXProfilingPlugin" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-        <header-file src="src/ios/CDVTMXProfilingPlugin.h" />
-        <source-file src="src/ios/CDVTMXProfilingPlugin.mm" />
-        <resource-file src="src/ios/TMXProfiling.framework" target="TMXProfiling.framework" />
-        <framework src="src/ios/TMXProfiling.framework" custom="true" />
-        <resource-file src="src/ios/TMXProfilingConnections.framework" target="TMXProfilingConnections.framework" />
-        <framework src="src/ios/TMXProfilingConnections.framework" custom="true" /> -->
+        <source-file src="src/ios/TMXProfilingPlugin.swift" />
+        <!--<header-file src="src/ios/TMXProfilingConnectionsProtocol.h" />-->
+        <framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
+        <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />
+        <source-file src="src/ios/frameworks/TMXProfilingConnections.xcframework/ios-arm64/TMXProfilingConnections.framework" framework="true" />
+        <!--<framework src="src/ios/frameworks/TMXProfilingConnections.xcframework"   embed="true" custom="true" /> -->
     </platform>
 </plugin>
