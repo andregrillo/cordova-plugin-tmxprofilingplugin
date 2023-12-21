@@ -62,6 +62,6 @@
         <!--<framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
         <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />-->
         <source-file src="src/ios/frameworks/TMXProfilingConnections.xcframework" framework="true" />
-        <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework"   embed="true" custom="true" /> 
+        <!--<framework src="src/ios/frameworks/TMXProfilingConnections.xcframework"   embed="true" custom="true" /> -->
     </platform>
 </plugin>
