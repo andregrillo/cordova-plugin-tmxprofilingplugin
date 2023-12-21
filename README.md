@@ -73,9 +73,9 @@ Example:
 TMXProfilingPlugin.scanPackages(timeout, successCallback, errorCallback);
 ```
 
-## Android Implementation
+## iOS & Android Implementation
 
-The plugin for Android is implemented in the `TMXProfilingPlugin` class. It handles the initialization, profiling, and scanning of packages as directed by the Cordova/OutSystems interface. The plugin ensures that correct values are passed and provides appropriate success and error callbacks.
+The plugin for iOS and Android is implemented in the `TMXProfilingPlugin` class. It handles the initialization, profiling, and scanning of packages (Android only) as directed by the Cordova/OutSystems interface. The plugin ensures that correct values are passed and provides appropriate success and error callbacks.
 
 ## Usage
 
@@ -83,14 +83,10 @@ Here's how you can use the plugin in your application:
 
 1. Initialize the ThreatMetrix profiling with the necessary configuration.
 2. Call `doProfile` to start the profiling process.
-3. Optionally, use `scanPackages` to perform a deeper scan of installed apps.
+3. Optionally, use `scanPackages` (Android only) to perform a deeper scan of installed apps.
 4. Use `cancelProfile` if you need to stop the profiling process.
 
 Remember to handle the success and error callbacks appropriately to ensure a smooth user experience.
-
-## iOS Implementation
-
-The iOS part of the plugin is still under development.
 
 ## Contributing
 
