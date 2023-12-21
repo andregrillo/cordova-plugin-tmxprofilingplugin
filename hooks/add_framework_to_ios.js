@@ -11,12 +11,12 @@ function getProjectName() {
         const r = /\B\s+|\s+\B/g;  // Removes trailing and leading spaces
         name = name.replace(r, '');
     });
-    name = name.replace(/\s/g, '\\ ');  // Escape spaces for file paths
+    //name = name.replace(/\s/g, '\\ ');  // Escape spaces for file paths
     return name || null;
 }
 
 module.exports = function(context) {
-    var projectPath = path.join('platforms/ios/'+ getProjectName() + '/' + getProjectName() + '.xcodeproj/project.pbxproj');
+    var projectPath = path.join('platforms/ios/' + getProjectName() + '.xcodeproj/project.pbxproj');
     var myProj = xcode.project(projectPath);
 
 
