@@ -36,9 +36,9 @@
             <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
         </config-file>
         <source-file src="src/android/TMXProfilingPlugin.java" target-dir="src/com/threatmetrix/cordova/plugin" />
-        <resource-file src="src/android/libs/TMXProfiling-7.1-45.aar" target="libs/TMXProfiling-7.1-45.aar" />
-        <resource-file src="src/android/libs/TMXProfilingConnections-7.1-45.aar" target="libs/TMXProfilingConnections-7.1-45.aar" />
-        <resource-file src="src/android/libs/TMXDeviceSecurityHealth-7.1-45.aar" target="libs/TMXDeviceSecurityHealth-7.1-45.aar" />
+        <resource-file src="src/android/libs/TMXProfiling-7.2-32.aar" target="libs/TMXProfiling-7.2-32.aar" />
+        <resource-file src="src/android/libs/TMXProfilingConnections-7.2-32.aar" target="libs/TMXProfilingConnections-7.2-32.aar" />
+        <resource-file src="src/android/libs/TMXDeviceSecurityHealth-7.2-32.aar" target="libs/TMXDeviceSecurityHealth-7.2-32.aar" />
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
     <platform name="ios">
