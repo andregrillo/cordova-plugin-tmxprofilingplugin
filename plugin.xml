@@ -55,6 +55,15 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
+        <config-file target="*.entitlements" parent="com.apple.developer.networking.wifi-info">
+            <true/>
+        </config-file>
+        <config-file target="**/Entitlements-Debug.plist" parent="com.apple.developer.networking.wifi-info">
+            <true/>
+        </config-file>
+        <config-file target="**/Entitlements-Release.plist" parent="com.apple.developer.networking.wifi-info">
+            <true/>
+        </config-file>
         <source-file src="src/ios/TMXProfilingPlugin.swift" />
         <framework src="src/ios/frameworks/TMXProfiling.xcframework" custom="true" embed="true" />
         <framework src="src/ios/frameworks/TMXProfilingConnections.xcframework" custom="true" embed="true" />
