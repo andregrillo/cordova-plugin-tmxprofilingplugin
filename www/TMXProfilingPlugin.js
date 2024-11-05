@@ -11,7 +11,3 @@ exports.doProfile = function (sessionID, success, error) {
 exports.cancelProfile = function (success, error) {
     exec(success, error, 'TMXProfilingPlugin', 'cancelProfile', []);
 };
-
-exports.scanPackages = function (timeout, success, error) {
-    exec(success, error, 'TMXProfilingPlugin', 'scanPackages', [timeout]);
-};

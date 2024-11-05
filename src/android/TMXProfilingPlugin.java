@@ -6,7 +6,7 @@ import com.lexisnexisrisk.threatmetrix.TMXEndNotifier;
 import com.lexisnexisrisk.threatmetrix.TMXProfiling;
 import com.lexisnexisrisk.threatmetrix.TMXProfilingHandle;
 import com.lexisnexisrisk.threatmetrix.TMXProfilingOptions;
-import com.lexisnexisrisk.threatmetrix.TMXScanEndNotifier;
+//import com.lexisnexisrisk.threatmetrix.TMXScanEndNotifier;
 import com.lexisnexisrisk.threatmetrix.TMXStatusCode;
 import com.lexisnexisrisk.threatmetrix.tmxprofilingconnections.TMXProfilingConnections;
 import org.apache.cordova.CallbackContext;
@@ -26,8 +26,6 @@ public class TMXProfilingPlugin extends CordovaPlugin {
                 return doProfile(args,callbackContext);
             } else if ("cancelProfile".equals(action)) {
                 return cancelProfile(callbackContext);
-            } else if ("scanPackages".equals(action)) {
-                return scanPackages(args,callbackContext);
             } else {
                 callbackContext.error("Error: Action not recognized.");
                 return false;
@@ -140,6 +138,7 @@ public class TMXProfilingPlugin extends CordovaPlugin {
         return true;
     }
 
+    /*
     private boolean scanPackages(final JSONArray args, final CallbackContext callbackContext) {
         // Default timeout value if not provided or invalid
         int defaultTimeout = 30;
@@ -164,6 +163,7 @@ public class TMXProfilingPlugin extends CordovaPlugin {
 
         return true;
     }
+    */
 
     private boolean cancelProfile(final CallbackContext callbackContext) {
         TMXProfilingHandle profilingHandle = TMXProfiling.getInstance().profile(new TMXEndNotifier(){
